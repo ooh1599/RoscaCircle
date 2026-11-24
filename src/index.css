@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #ffffff;
+  --bg-gradient: linear-gradient(180deg, #f9f9fc 0%, #fffcf7 52%, #fbf7f2 100%);
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-strong: rgba(255, 255, 255, 0.92);
+  --surface-muted: #f3f4f8;
+  --ink: #122d45;
+  --ink-2: #334155;
+  --muted: #5f6b7c;
+  --subtle: #8190a3;
+  --border: rgba(18, 45, 69, 0.1);
+  --border-strong: rgba(25, 53, 77, 0.5);
+  --accent: #122d45;
+  --accent-hover: #1061a6;
+  --focus: #85b1ed;
+  --success: #1a8047;
+  --danger: #ba2b4c;
+  --warn: #9a6a12;
+  --spectral: linear-gradient(90deg, #85b1ed 0%, #b9a7f0 28%, #f2b8c6 54%, #f7d9a8 78%, #a8e0c0 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Soft ambient light behind the content, kept very quiet. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 28rem at 12% -8%, rgba(133, 177, 237, 0.2), transparent 60%),
+    radial-gradient(48rem 24rem at 100% 8%, rgba(247, 217, 168, 0.22), transparent 60%);
+}
+
+.display {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.03em;
+}
+.mono {
+  font-family: 'JetBrains Mono', Menlo, monospace;
+}
+.label-caps {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--subtle);
+}
+.spectral {
+  background: var(--spectral);
+}
+
+input,
+select,
+button {
+  font-family: inherit;
+}
+input:focus-visible,
+select:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+input[type='number']::-webkit-inner-spin-button {
+  opacity: 0.4;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes ring-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.rise-in {
+  animation: rise-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.rise-in:nth-child(2) {
+  animation-delay: 0.05s;
+}
+.rise-in:nth-child(3) {
+  animation-delay: 0.1s;
+}
+.rise-in:nth-child(4) {
+  animation-delay: 0.15s;
+}
+.ring-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring-pulse 2.2s ease-out infinite;
+}
+.skeleton {
+  background: linear-gradient(90deg, rgba(18, 45, 69, 0.06) 25%, rgba(18, 45, 69, 0.12) 37%, rgba(18, 45, 69, 0.06) 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 12px;
+}
+.lift {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+.lift:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(18, 45, 69, 0.09);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in,
+  .ring-pulse,
+  .skeleton {
+    animation: none;
+  }
+  .lift:hover {
+    transform: none;
+  }
+}
